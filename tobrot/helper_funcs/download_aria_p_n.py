@@ -81,7 +81,7 @@ def add_magnet(aria_instance, magnetic_link, c_file_name):
     except Exception as e:
         return (
             False,
-            "**FAILED** \n" + str(e) + " \nPlease do not send SLOW links. Read /help",
+            "**GAGL** \n" + str(e) + " \nMohon jangan kirim link lambat",
         )
     else:
         return True, "" + download.gid + ""
@@ -91,9 +91,9 @@ def add_torrent(aria_instance, torrent_file_path):
     if torrent_file_path is None:
         return (
             False,
-            "**FAILED** \n"
+            "**GAGAL** \n"
             + str(e)
-            + " \nsomething wrongings when trying to add <u>TORRENT</u> file",
+            + " \nAda sesuatu yang salah saat menambahkan <u>TORRENT</u> file",
         )
     if os.path.exists(torrent_file_path):
         # Add Torrent Into Queue
@@ -104,14 +104,14 @@ def add_torrent(aria_instance, torrent_file_path):
         except Exception as e:
             return (
                 False,
-                "**FAILED** \n"
+                "**GAGAL** \n"
                 + str(e)
-                + " \nPlease do not send SLOW links. Read /help",
+                + " \nTolong jangan menggunakan link lambat",
             )
         else:
             return True, "" + download.gid + ""
     else:
-        return False, "**FAILED** \nPlease try other sources to get workable link"
+        return False, "**GAGAL** \nCoba dengan link lain"
 
 
 def add_url(aria_instance, text_url, c_file_name):
@@ -127,7 +127,7 @@ def add_url(aria_instance, text_url, c_file_name):
     except Exception as e:
         return (
             False,
-            "**FAILED** \n" + str(e) + " \nPlease do not send SLOW links. Read /help",
+            "**GAGAL** \n" + str(e) + " \nJangan kirim link yang lambat",
         )
     else:
         return True, "" + download.gid + ""
@@ -168,7 +168,7 @@ async def call_apropriate_function(
                 aria_instance, err_message, sent_message_to_update_tg_p, None
             )
         else:
-            return False, "can't get metadata \n\n#MetaDataError"
+            return False, "Tidak bisa mendapatkan metadata \n\n#MetaDataError"
     await asyncio.sleep(1)
     file = aria_instance.get_download(err_message)
     to_upload_file = file.name
@@ -238,12 +238,12 @@ async def call_apropriate_function(
                     message_to_send += "\n"
                 if message_to_send != "":
                     mention_req_user = (
-                        f"<a href='tg://user?id={user_id}'>Your Requested Files</a>\n\n"
+                        f"<a href='tg://user?id={user_id}'>Permintaan Upload File Kamu</a>\n\n"
                     )
                     message_to_send = mention_req_user + message_to_send
-                    message_to_send = message_to_send + "\n\n" + "#uploads"
+                    message_to_send = message_to_send + "\n\n" + "@YMovieZ"
                 else:
-                    message_to_send = "<i>FAILED</i> to upload files. 😞😞"
+                    message_to_send = "<i>GAGAL</i> mengupload files. 😞😞"
                 await user_message.reply_text(
                     text=message_to_send, quote=True, disable_web_page_preview=True
                 )
@@ -281,8 +281,8 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 else:
                     msgg = f"P: {file.connections} | S: {file.num_seeders} <b>|</b> GID: <code>{gid}</code>"
                 msg = f"\n`{downloading_dir_name}`"
-                msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
-                msg += f"\n<b>Status</b>: {file.progress_string()} <b>of</b> {file.total_length_string()} <b>|</b> {file.eta_string()} <b>|</b> {msgg}"
+                msg += f"\n<b>Kecepatan</b>: <code>{file.download_speed_string()}</code>"
+                msg += f"\n<b>Status</b>: <code>{file.progress_string()}</code> <b>dari</b> <code>{file.total_length_string()}</code> <b>|</b> {file.eta_string()} <b>|</b> {msgg}"
                 # msg += f"\nSize: {file.total_length_string()}"
 
                 # if is_file is None :
@@ -297,7 +297,7 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 ikeyboard = []
                 ikeyboard.append(
                     InlineKeyboardButton(
-                        "Cancel 🚫", callback_data=(f"cancel {gid}").encode("UTF-8")
+                        "Batalkan 🚫", callback_data=(f"cancel {gid}").encode("UTF-8")
                     )
                 )
                 inline_keyboard.append(ikeyboard)
@@ -315,10 +315,10 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                         previous_message = msg
                     else:
                         LOGGER.info(
-                            f"Cancelling downloading of {file.name} may be due to slow torrent"
+                            f"Membatalkan download {file.name} karena torrent lambat"
                         )
                         await event.edit(
-                            f"Download cancelled :\n<code>{file.name}</code>\n\n #MetaDataError"
+                            f"Download dibatalkan:\n<code>{file.name}</code>\n\n #MetaDataError"
                         )
                         file.remove(force=True, files=True)
                         return False
@@ -332,16 +332,16 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
             await check_progress_for_dl(aria2, gid, event, previous_message)
         else:
             LOGGER.info(
-                f"Downloaded Successfully: `{file.name} ({file.total_length_string()})` 🤒"
+                f"Berhasil diunduh : `{file.name} ({file.total_length_string()})` 🤒"
             )
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await event.edit(
-                f"Downloaded Successfully: `{file.name} ({file.total_length_string()})` 🤒"
+                f"Berhasil diunduh : `{file.name} ({file.total_length_string()})` 🤒"
             )
             return True
     except aria2p.client.ClientException:
         await event.edit(
-            f"Download cancelled :\n<code>{file.name} ({file.total_length_string()})</code>"
+            f"Unduhan dibatalkan :\n<code>{file.name} ({file.total_length_string()})</code>"
         )
     except MessageNotModified as ep:
         LOGGER.info(ep)
@@ -353,15 +353,15 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
     except RecursionError:
         file.remove(force=True, files=True)
         await event.edit(
-            "Download Auto Canceled :\n\n"
-            "Your Torrent/Link is Dead.".format(file.name)
+            "Download Otomatis Dibatalkan :\n\n"
+            "Torrent atau link sudah mati.".format(file.name)
         )
         return False
     except Exception as e:
         LOGGER.info(str(e))
         if "not found" in str(e) or "'file'" in str(e):
             await event.edit(
-                f"Download cancelled :\n<code>{file.name} ({file.total_length_string()})</code>"
+                f"Unduhan dibatalkan:\n<code>{file.name} ({file.total_length_string()})</code>"
             )
             return False
         else:
