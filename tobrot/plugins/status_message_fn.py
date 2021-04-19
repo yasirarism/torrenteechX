@@ -64,7 +64,7 @@ async def status_message_f(client, message):
         # LOGGER.info(msg)
 
         if msg == "":
-            msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
+            msg = "🤷‍♂️ Tidak ada proses yang aktif"
 
     hr, mi, se = up_time(time.time() - BOT_START_TIME)
     total, used, free = shutil.disk_usage(".")
@@ -74,9 +74,9 @@ async def status_message_f(client, message):
 
     ms_g = (
         f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
-        f"<b>Total disk space</b>: <code>{total}</code>\n"
-        f"<b>Used</b>: <code>{used}</code>\n"
-        f"<b>Free</b>: <code>{free}</code>\n"
+        f"<b>Total Ruang Penyimpanan</b>: <code>{total}</code>\n"
+        f"<b>Ruang Digunakan</b>: <code>{used}</code>\n"
+        f"<b>Ruang Kosong</b>: <code>{free}</code>\n"
     )
     # LOGGER.info(ms_g)
 
@@ -96,7 +96,7 @@ async def status_message_f(client, message):
 async def cancel_message_f(client, message):
     if len(message.command) > 1:
         # /cancel command
-        i_m_s_e_g = await message.reply_text("checking..?", quote=True)
+        i_m_s_e_g = await message.reply_text("Memeriksa..?", quote=True)
         aria_i_p = await aria_start()
         g_id = message.command[1].strip()
         LOGGER.info(g_id)
@@ -104,9 +104,9 @@ async def cancel_message_f(client, message):
             downloads = aria_i_p.get_download(g_id)
             LOGGER.info(downloads)
             LOGGER.info(downloads.remove(force=True, files=True))
-            await i_m_s_e_g.edit_text("Leech Cancelled")
+            await i_m_s_e_g.edit_text("Leech Dibatalkan")
         except Exception as e:
-            await i_m_s_e_g.edit_text("<i>FAILED</i>\n\n" + str(e) + "\n#error")
+            await i_m_s_e_g.edit_text("<i>GAGAL</i>\n\n" + str(e) + "\n#error")
     else:
         await message.delete()
 
@@ -153,7 +153,7 @@ async def exec_message_f(client, message):
 
 
 async def upload_document_f(client, message):
-    imsegd = await message.reply_text("processing ...")
+    imsegd = await message.reply_text("Memproses ...")
     if message.from_user.id in AUTH_CHANNEL:
         if " " in message.text:
             recvd_command, local_file_name = message.text.split(" ", 1)
@@ -166,7 +166,7 @@ async def upload_document_f(client, message):
 
 async def eval_message_f(client, message):
     if message.from_user.id in AUTH_CHANNEL:
-        status_message = await message.reply_text("Processing ...")
+        status_message = await message.reply_text("Memproses ...")
         cmd = message.text.split(" ", maxsplit=1)[1]
 
         reply_to_id = message.message_id
@@ -237,4 +237,4 @@ def up_time(time_taken):
 async def upload_log_file(client, message):
     g = await AdminCheck(client, message.chat.id, message.from_user.id)
     if g:
-        await message.reply_document("Torrentleech-Gdrive.txt")
+        await message.reply_document("YasirLeechBot.txt")
