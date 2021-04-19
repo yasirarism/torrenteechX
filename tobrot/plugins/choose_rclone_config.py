@@ -38,16 +38,16 @@ There are {len(sections)} sections in your rclone.conf file,
 please choose which section you want to use:"""
         ikeyboard = [
             pyrogram.InlineKeyboardButton(
-                "‼️ Cancel ‼️", callback_data=(f"rcloneCancel").encode("UTF-8")
+                "‼️ Batal ‼️", callback_data=(f"rcloneCancel").encode("UTF-8")
             )
         ]
         inline_keyboard.append(ikeyboard)
         reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
         await message.reply_text(text=msg_text, reply_markup=reply_markup)
     else:
-        await message.reply_text("You have no permission!")
+        await message.reply_text("Kamu tidak punya ijin!")
         LOGGER.warning(
-            f"uid={message.from_user.id} have no permission to edit rclone config!"
+            f"uid={message.from_user.id} tidak punya ijin mengubah rclone config!"
         )
 
 
@@ -57,10 +57,10 @@ async def rclone_button_callback(bot, update: CallbackQuery):
         config.read("rclone.conf")
         section = config.sections()[0]
         await update.message.edit_text(
-            f"Opration canceled! \n\nThe default section of rclone config is: **{section}**"
+            f"Operasi dibatalkan! \n\nSetting rclone default adalah: **{section}**"
         )
         LOGGER.info(
-            f"Opration canceled! The default section of rclone config is: {section}"
+            f"Operasi dibatalkan! Setting default rclone adalah: {section}"
         )
     else:
         section = update.data.split("_", maxsplit=1)[1]
@@ -70,6 +70,6 @@ async def rclone_button_callback(bot, update: CallbackQuery):
             temp[section] = config[section]
             temp.write(f)
         await update.message.edit_text(
-            f"Default rclone config changed to **{section}**"
+            f"rclone diubah ke **{section}**"
         )
-        LOGGER.info(f"Default rclone config changed to {section}")
+        LOGGER.info(f"rclone diubah ke {section}")
