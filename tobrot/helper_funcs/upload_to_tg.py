@@ -71,7 +71,7 @@ async def upload_to_tg(
         new_m_esg = message
         if not message.photo:
             new_m_esg = await message.reply_text(
-                f"Found {len(directory_contents)} files <a href='tg://user?id={from_user}'>🤒</a>",
+                f"Ditemukan {len(directory_contents)} file <a href='tg://user?id={from_user}'>🤒</a>",
                 quote=True
                 # reply_to_message_id=message.message_id
             )
@@ -91,9 +91,9 @@ async def upload_to_tg(
             LOGGER.info("TODO")
             d_f_s = humanbytes(os.path.getsize(local_file_name))
             i_m_s_g = await message.reply_text(
-                "Telegram does not support uploading this file.\n"
-                f"Detected File Size: {d_f_s} 😡\n"
-                "\n🤖 trying to split the files 🌝🌝🌚"
+                "Telegram tidak bisa mengupload file ini.\n"
+                f"Ukuran file yang terdeteksi: {d_f_s} 😡\n"
+                "\n🤖 Mencoba memecah file... 🌝🌝🌚"
             )
             splitted_dir = await split_large_files(local_file_name)
             totlaa_sleif = os.listdir(splitted_dir)
@@ -102,9 +102,9 @@ async def upload_to_tg(
             LOGGER.info(totlaa_sleif)
             ba_se_file_name = os.path.basename(local_file_name)
             await i_m_s_g.edit_text(
-                f"Detected File Size: {d_f_s} 😡\n"
-                f"<code>{ba_se_file_name}</code> splitted into {number_of_files} files.\n"
-                "trying to upload to Telegram, now ..."
+                f"Ukuran file terdeteksi: {d_f_s} 😡\n"
+                f"<code>{ba_se_file_name}</code> dipecah menjadi {number_of_files} file.\n"
+                "Mencoba mengupload ke Telegram sekarang ..."
             )
             for le_file in totlaa_sleif:
                 # recursion: will this FAIL somewhere?
@@ -144,7 +144,7 @@ async def upload_to_tg(
 async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await message.edit_text(
-        f"<a href='tg://user?id={g_id}'>🔊</a> Now Uploading to ☁️ Cloud!!!"
+        f"<a href='tg://user?id={g_id}'>🔊</a> Sekarang mengupload ke ☁️ Cloud!!!"
     )
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
@@ -318,7 +318,7 @@ async def upload_single_file(
         message_for_progress_display = message
         if not edit_media:
             message_for_progress_display = await message.reply_text(
-                "starting upload of {}".format(os.path.basename(local_file_name))
+                "Memulai upload {}".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
         sent_message = await message.reply_document(
@@ -348,7 +348,7 @@ async def upload_single_file(
             message_for_progress_display = message
             if not edit_media:
                 message_for_progress_display = await message.reply_text(
-                    "starting upload of {}".format(os.path.basename(local_file_name))
+                    "Memulai upload {}".format(os.path.basename(local_file_name))
                 )
                 prog = Progress(from_user, client, message_for_progress_display)
             if local_file_name.upper().endswith(("MKV", "MP4", "WEBM")):
@@ -538,7 +538,7 @@ async def upload_single_file(
             time.sleep(g.x)
         except Exception as e:
             LOGGER.info(e)
-            await message_for_progress_display.edit_text("**FAILED**\n" + str(e))
+            await message_for_progress_display.edit_text("**GAGAL**\n" + str(e))
         else:
             if message.message_id != message_for_progress_display.message_id:
                 try:
