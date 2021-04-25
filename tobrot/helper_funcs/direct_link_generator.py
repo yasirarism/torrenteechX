@@ -39,15 +39,15 @@ def direct_link_generator(text_url: str):
     elif 'racaty.net' in text_url:
         return racaty(text_url)
     elif 'letsupload.io' in link:
-        return letsupload(link)
+        return letsupload(text_url)
     elif 'hxfile.co' in link:
-        return hxfile(link)
+        return hxfile(text_url)
     elif 'layarkacaxxi.icu' in link:
-        return fembed720(link)
+        return fembed720(text_url)
     elif 'femax20.com' in link:
-        return fembed480(link)
+        return fembed480(text_url)
     elif 'anonfiles.com' in link:
-        return anon(link)
+        return anon(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
