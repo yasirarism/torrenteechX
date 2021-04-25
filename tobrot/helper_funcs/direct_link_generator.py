@@ -38,15 +38,15 @@ def direct_link_generator(text_url: str):
         return github(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
-    elif 'letsupload.io' in link:
+    elif 'letsupload.io' in text_url:
         return letsupload(text_url)
-    elif 'hxfile.co' in link:
+    elif 'hxfile.co' in text_url:
         return hxfile(text_url)
-    elif 'layarkacaxxi.icu' in link:
+    elif 'layarkacaxxi.icu' in text_url:
         return fembed720(text_url)
-    elif 'femax20.com' in link:
+    elif 'femax20.com' in text_url:
         return fembed480(text_url)
-    elif 'anonfiles.com' in link:
+    elif 'anonfiles.com' in text_url:
         return anon(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
