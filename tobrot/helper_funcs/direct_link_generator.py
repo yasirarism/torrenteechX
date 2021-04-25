@@ -10,6 +10,7 @@ for original authorship. """
 
 import json
 import re
+import lk21
 import urllib.parse
 from os import popen
 from random import choice
