@@ -38,10 +38,69 @@ def direct_link_generator(text_url: str):
         return github(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
+    elif 'letsupload.io' in link:
+        return letsupload(link)
+    elif 'hxfile.co' in link:
+        return hxfile(link)
+    elif 'layarkacaxxi.icu' in link:
+        return fembed720(link)
+    elif 'femax20.com' in link:
+        return fembed480(link)
+    elif 'anonfiles.com' in link:
+        return anon(link)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
+def letsupload(url: str) -> str:
+    dl_url = ''
+    try:
+        link = re.findall(r'\bhttps?://.*letsupload\.io\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No Letsupload links found`\n")
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_url(link)
+    return dl_url
 
+def hxfile(url: str) -> str:
+    dl_url = ''
+    try:
+        link = re.findall(r'\bhttps?://.*hxfile\.co\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No HXFile links found`\n")
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_url(link)
+    return dl_url
+
+def fembed720(url: str) -> str:
+    dl_url = ''
+    try:
+        link = re.findall(r'\bhttps?://.*layarkacaxxi\.icu\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No Fembed links found`\n")
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_url(link)
+    return dl_url["720p/mp4"]
+
+def fembed480(url: str) -> str:
+    dl_url = ''
+    try:
+        link = re.findall(r'\bhttps?://.*femax20\.com\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No Fembed links found`\n")
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_url(link)
+    return dl_url["480p/mp4"]
+
+def anon(url: str) -> str:
+    dl_url = ''
+    try:
+        link = re.findall(r'\bhttps?://.*anonfiles\.com\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No anonfiles links found`\n")
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_url(link)
+    return dl_url
+        
 def zippy_share(url: str) -> str:
     link = re.findall("https:/.(.*?).zippyshare", url)[0]
     response_content = (requests.get(url)).content
