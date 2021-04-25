@@ -128,6 +128,11 @@ def add_url(aria_instance, text_url, c_file_name):
         or "cloud.mail.ru" in text_url \
         or "github.com" in text_url \
         or "yadi.sk" in text_url  \
+        or "letsupload.io" in text_url  \
+        or "hxfile.co" in text_url  \
+        or "layarkacaxxi.icu" in text_url  \
+        or "femax20.com" in text_url  \
+        or "anonfiles.com" in text_url  \
         or "racaty.net" in text_url:
             try:
                 urisitring = direct_link_generator(text_url)
