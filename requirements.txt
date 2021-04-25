@@ -12,3 +12,4 @@ bs4
 lxml
 requests
 js2py
+lk21
