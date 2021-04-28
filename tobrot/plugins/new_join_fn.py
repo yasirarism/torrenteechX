@@ -25,6 +25,6 @@ async def help_message_f(client, message):
     # display the /help
 
     await message.reply_text(
-        """Selamat datang, silahkan baca daftar command di pinned message yaahhh. Movies lain bisa dicek di @YMovieZ""",
+        """Selamat datang, silahkan baca daftar command di pinned message yaahhh. Jangan spam atau flood bot""",
         disable_web_page_preview=True,
     )
