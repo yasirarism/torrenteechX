@@ -13,7 +13,7 @@ from tobrot import LOGGER
 
 async def take_screen_shot(video_file, output_directory, ttl):
     # https://stackoverflow.com/a/13891070/4723940
-    out_put_file_name = os.path.join(output_directory, str(time.time()) + ".jpg")
+    out_put_file_name = os.path.join(output_directory, f"{str(time.time())}.jpg")
     if video_file.upper().endswith(("MKV", "MP4", "WEBM")):
         file_genertor_command = [
             "ffmpeg",
@@ -37,7 +37,4 @@ async def take_screen_shot(video_file, output_directory, ttl):
         e_response = stderr.decode().strip()
         t_response = stdout.decode().strip()
     #
-    if os.path.lexists(out_put_file_name):
-        return out_put_file_name
-    else:
-        return None
+    return out_put_file_name if os.path.lexists(out_put_file_name) else None
