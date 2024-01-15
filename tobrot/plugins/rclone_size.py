@@ -42,15 +42,15 @@ async def check_size_g(client, message):
 
 
 async def g_clearme(client, message):
-    inline_keyboard = []
-    ikeyboard = []
-    ikeyboard.append(
-        InlineKeyboardButton("Ya 🚫", callback_data=("fuckingdo").encode("UTF-8"))
-    )
+    ikeyboard = [
+        InlineKeyboardButton(
+            "Ya 🚫", callback_data=("fuckingdo").encode("UTF-8")
+        )
+    ]
     ikeyboard.append(
         InlineKeyboardButton("Tidak 🤗", callback_data=("fuckoff").encode("UTF-8"))
     )
-    inline_keyboard.append(ikeyboard)
+    inline_keyboard = [ikeyboard]
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
     await message.reply_text(
         "Apakah kamu yakin? 🚫 Ini akan menghapus semua download di lokal 🚫",

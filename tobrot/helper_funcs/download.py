@@ -28,7 +28,7 @@ async def down_load_media_f(client, message):
         os.makedirs(DOWNLOAD_LOCATION)
     if message.reply_to_message is not None:
         start_t = datetime.now()
-        download_location = str(Path().resolve()) + "/"
+        download_location = f"{str(Path().resolve())}/"
         c_time = time.time()
         prog = Progress(user_id, client, mess_age)
         try:
